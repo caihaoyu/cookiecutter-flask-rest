@@ -1,7 +1,7 @@
 {
     "full_name": "cai haoyu",
     "email": "chywj7@gmail.com",
-    "porject_name": "rest-example",
+    "project_name": "rest-example",
     "project_slug": "{{cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_')}}",
     "project_short_description": "rest example"
 
