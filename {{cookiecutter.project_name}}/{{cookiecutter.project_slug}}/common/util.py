@@ -2,7 +2,7 @@ import hashlib
 
 import mongoengine
 
-from geek_digest import settings
+from {{cookiecutter.project_slug}} import settings
 
 
 def paging(cls=None, field=None, page=None, page_size=None, order_by=None,

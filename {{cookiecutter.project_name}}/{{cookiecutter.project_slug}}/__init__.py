@@ -4,10 +4,10 @@ import types
 from flask import Flask
 from flask_jwt import JWT
 
-from geek_digest import settings
-from geek_digest.api.base import Service
-from geek_digest.common import util
-from geek_digest.model.user import authenticate, identity
+from {{cookiecutter.project_slug}} import settings
+from {{cookiecutter.project_slug}}.api.base import Service
+from {{cookiecutter.project_slug}}.common import util
+# from {{cookiecutter.project_slug}}.model.user import authenticate, identity
 
 app = Flask(__name__)
 
@@ -16,22 +16,22 @@ app.config['JWT_AUTH_URL_RULE'] = None
 app.config['JWT_EXPIRATION_DELTA'] = datetime.timedelta(
     days=settings.JWT_EXPIRATION_DELTA)
 # app.config['JWT_AUTH_URL_OPTIONS'] = {'methods': ['POST', 'OPTIONS']}
-jwt = JWT(app, authenticate, identity)
+# jwt = JWT(app, authenticate, identity)
 
 
-@jwt.jwt_payload_handler
-def jwt_payload_handler(identity):
-    iat = datetime.datetime.utcnow()
-    exp = iat + app.config.get('JWT_EXPIRATION_DELTA')
-    nbf = iat + app.config.get('JWT_NOT_BEFORE_DELTA')
-    identity = getattr(identity, 'id', None) or identity['id']
-    return {'exp': exp, 'iat': iat, 'nbf': nbf, 'identity': str(identity)}
+# @jwt.jwt_payload_handler
+# def jwt_payload_handler(identity):
+#     iat = datetime.datetime.utcnow()
+#     exp = iat + app.config.get('JWT_EXPIRATION_DELTA')
+#     nbf = iat + app.config.get('JWT_NOT_BEFORE_DELTA')
+#     identity = getattr(identity, 'id', None) or identity['id']
+#     return {'exp': exp, 'iat': iat, 'nbf': nbf, 'identity': str(identity)}
 
 
-@jwt.auth_response_handler
-def auth_response_handler(access_token, identity):
-    data = {'access_token': access_token.decode('utf-8')}
-    return rest_api.make_response(*util.api_response(data=data))
+# @jwt.auth_response_handler
+# def auth_response_handler(access_token, identity):
+#     data = {'access_token': access_token.decode('utf-8')}
+#     return rest_api.make_response(*util.api_response(data=data))
 
 
 def api_route(self, *args, **kwargs):

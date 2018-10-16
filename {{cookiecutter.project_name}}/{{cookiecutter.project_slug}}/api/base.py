@@ -6,8 +6,8 @@ from flask_restful.utils import cors
 from flask_restful import Api
 from flask_jwt import JWTError
 
-from geek_digest import settings
-from geek_digest.common import util
+from {{cookiecutter.project_slug}} import settings
+from {{cookiecutter.project_slug}}.common import util
 
 
 class BaseAPI(Resource):
