@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  {{cookiecutter.project_name}}-db-dev:
+    image: mongo:3.4.6
+    container_name: {{cookiecutter.project_name}}-db-dev
+    volumes:
+    - /home/deploy/db/{{cookiecutter.project_name}}-dev:/data/db
+    - /home/deploy/log/{{cookiecutter.project_name}}-dev:/var/log/mongodb
+    ports:
+      - 27017:27017
+    command: mongod --smallfiles
+    # if you wang to limit mongodb memory usage,
+    # append `--wiredTigerCacheSizeGB {maxium-memory}` to the end of `command`.
+
+  {{cookiecutter.project_name}}-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: gmirror/{{cookiecutter.project_name}}:dev
+    container_name: {{cookiecutter.project_name}}-dev
+    command: bash -c "python3 -u run.py runserver -h 0.0.0.0 -p 8000 --thread"
+    ports:
+      - 8000:8000
+    env_file: /home/deploy/envs/{{cookiecutter.project_name}}.dev.env
+    links:
+      - {{cookiecutter.project_name}}-db-dev
