@@ -1,8 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class BaseModel(object):
-    __metaclass__ = ABCMeta
+class BaseModel(object, metaclass=ABCMeta):
 
     @abstractmethod
     def api_response(self):

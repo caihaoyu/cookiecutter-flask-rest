@@ -1,4 +1,5 @@
 import hashlib
+import datetime
 
 import mongoengine
 
@@ -123,3 +124,21 @@ def md5(text):
     h = hashlib.md5()
     h.update(text.encode())
     return h.hexdigest()
+
+
+def api_response_generator(obj):
+    """
+    api_response 生成器
+
+    """
+    result = dict()
+    for fldname, fld in type(obj)._fields.items():
+        value = getattr(obj, fldname)
+        result[fldname] = value
+        if fldname == 'id':
+            result[fldname] = str(value)
+        if isinstance(value, datetime.datetime):
+            result[fldname] = value.timestamp()
+        if isinstance(value, mongoengine.Document):
+            result[fldname] = value.api_base_response()
+    return result
