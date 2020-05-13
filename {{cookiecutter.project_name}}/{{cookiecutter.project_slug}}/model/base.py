@@ -1,11 +1,10 @@
-from abc import ABCMeta, abstractmethod
+from {{cookiecutter.project_slug}}.common import util
 
 
-class BaseModel(object, metaclass=ABCMeta):
+class BaseModel():
 
-    @abstractmethod
     def api_response(self):
-        pass
+        return util.api_response_generator(self)
 
     @classmethod
     def get_by_id(cls, id):
@@ -15,6 +14,5 @@ class BaseModel(object, metaclass=ABCMeta):
         except Exception as e:
             raise Exception('Id is not found.')
 
-    @abstractmethod
     def api_base_response(self):
-        pass
+        return util.api_response_generator(self)
